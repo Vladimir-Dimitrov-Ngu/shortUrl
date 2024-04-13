@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+    title: URL Shortener
+    description: A server application that transforms long web links into shorter, more manageable ones
+    version: 0.0.1
+paths:
+  /api/urls:
+    post:
+      summary: Create short url
+      responses:
+        200:
+          description: shorl usl was created
+          content:
+            application/json:
+              schema: 
+                type: object
+                required: [key]
+                properties: 
+                  key:
+                    type: string
+                    description: key that is used to access full url
+                    pattern: '^\w{5}$'
+                    
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url]
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  nullable: false
+        
+        
+  /{key}:
+    get:
+      parameters:
+        - in: path
+          name: key
+          description: key that was created by `POST /api/urls`
+          schema:
+            type: string
+            pattern: '^\w{5}$'
+          required: true
+      responses:
+        308:
+          description: Redirect in real address 
+          headers:
+            Location:
+              required: true
+              description: Redirect address that created when we create short url
+              schema: 
+                type: string
+        404:
+          description: This key is not short url
