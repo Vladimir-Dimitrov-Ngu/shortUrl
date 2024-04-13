@@ -32,13 +32,16 @@ Content-Type: application/json
 {
     "url": "https://example.com/very-long-url-that-we-want-to-shorten"
 }
-
+```
+Or
+```bash
+curl -XPOST http://Localhost:8080/api/urls -d '{"url": "https://example.com/very-long-url-that-we-want-to-shorten"}'
 ```
 Receive a response with the short URL:
 
 ```json
 {
-    "key": "abcde"
+    "key": "0ve6V"
 }
 
 ```
@@ -47,7 +50,7 @@ Receive a response with the short URL:
 Open a browser and enter the URL in the format http://your-server/{key}, where {key} is the key obtained after creating the short link. For example:
 
 ```
-http://your-server/abcde
+http://your-server/0ve6V
 ```
 
 ## API
